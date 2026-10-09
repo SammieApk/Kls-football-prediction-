@@ -508,6 +508,34 @@ renderPicks();
 renderResults();
 renderManage();
 </script>
+<script>
+const SUPABASE_URL = "sb_publishable_Cl7lmlybeM7fQeVC6uUkKw_i-KZmgb8";
+const SUPABASE_KEY = "hhfodsluxidhsroiujnn";
 
+async function loadSharedPredictions() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/predictions?select=*&order=match_date.asc`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Could not load predictions");
+    }
+
+    const predictions = await response.json();
+    console.log("Shared predictions:", predictions);
+  } catch (error) {
+    console.error("Predictions error:", error);
+  }
+}
+
+loadSharedPredictions();
+</script>
 </body>
 </html>
