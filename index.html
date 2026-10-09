@@ -4,113 +4,510 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07110d">
+
 <title>KLS Football Predictions</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
-  margin:0;
-  background:#07110d;
-  color:#fff;
-  font-family:Arial,sans-serif;
+ margin:0;
+ background:#07110d;
+ color:#fff;
+ font-family:Arial,sans-serif;
+ padding-bottom:85px;
 }
+
 header{
-  padding:22px 18px;
-  background:#0d1c14;
-  border-bottom:1px solid #203c2a;
+ background:#0d1c14;
+ padding:20px;
+ border-bottom:1px solid #23402e;
+ position:sticky;
+ top:0;
+ z-index:5;
 }
-.logo{color:#35e878;font-size:25px;font-weight:900}
-.tagline{color:#9bb5a3;font-size:12px;margin-top:5px}
-main{padding:18px;max-width:600px;margin:auto}
-h2{font-size:19px;margin-top:25px}
+
+.logo{
+ color:#35e878;
+ font-size:25px;
+ font-weight:900;
+}
+
+.tagline{
+ color:#9bb5a3;
+ font-size:11px;
+ margin-top:5px;
+}
+
+main{
+ max-width:650px;
+ margin:auto;
+ padding:18px;
+}
+
 .banner{
-  background:linear-gradient(135deg,#123d25,#0d2015);
-  padding:22px;border-radius:16px;
-  border:1px solid #27633c;
+ background:linear-gradient(135deg,#164b2c,#102219);
+ border:1px solid #28633d;
+ padding:22px;
+ border-radius:16px;
 }
-.banner h2{margin-top:0;font-size:23px}
-.banner p{color:#c3d8c9;line-height:1.5}
-.label{color:#35e878;font-size:11px;font-weight:bold}
+
+.banner h1{font-size:25px}
+
+.muted{color:#9bb5a3;font-size:13px;line-height:1.6}
+
+h2{font-size:20px;margin-top:25px}
+
 .card{
-  background:#102017;border:1px solid #203c2a;
-  padding:16px;border-radius:13px;margin:12px 0;
+ background:#102017;
+ border:1px solid #24412e;
+ padding:16px;
+ border-radius:14px;
+ margin:12px 0;
 }
-.teams{font-size:16px;font-weight:bold;margin:12px 0}
-.row{display:flex;justify-content:space-between;gap:10px}
-.muted{color:#9bb5a3;font-size:12px}
+
+.row{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+}
+
+.label{
+ color:#35e878;
+ font-size:11px;
+ font-weight:bold;
+}
+
+.teams{
+ font-size:17px;
+ font-weight:bold;
+ margin:16px 0;
+}
+
 .pick{
-  display:inline-block;background:#173c26;
-  color:#55f18b;padding:9px 12px;
-  border-radius:8px;font-size:13px;font-weight:bold;
+ display:inline-block;
+ background:#17452a;
+ color:#5af18e;
+ padding:10px;
+ border-radius:8px;
+ font-size:13px;
+ font-weight:bold;
 }
+
+button,select{
+ background:#153522;
+ color:white;
+ border:1px solid #31563b;
+ padding:11px 13px;
+ border-radius:9px;
+ font-size:13px;
+ cursor:pointer;
+}
+
+button:active{opacity:.7}
+
+.primary{
+ background:#27cf68;
+ color:#07110d;
+ border:0;
+ font-weight:bold;
+}
+
+.tabs{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
+ margin:15px 0;
+}
+
+.tabs button.active{
+ background:#27cf68;
+ color:#07110d;
+}
+
 nav{
-  position:sticky;bottom:0;display:flex;
-  justify-content:space-around;background:#0d1c14;
-  border-top:1px solid #203c2a;padding:15px 5px;
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ display:flex;
+ justify-content:space-around;
+ background:#0d1c14;
+ border-top:1px solid #294431;
+ padding:12px 2px;
+ z-index:10;
 }
-nav a{color:#b6c8bb;text-decoration:none;font-size:12px}
-footer{padding:20px;color:#83998a;font-size:11px;line-height:1.6}
+
+nav button{
+ background:none;
+ border:0;
+ padding:8px 3px;
+ color:#b6c8bb;
+ font-size:11px;
+}
+
+nav button.active{color:#42ec82}
+
+.stat{
+ display:inline-block;
+ background:#14291c;
+ border:1px solid #294431;
+ padding:15px;
+ border-radius:10px;
+ margin:4px;
+ min-width:42%;
+}
+
+.stat strong{
+ display:block;
+ color:#40e981;
+ font-size:22px;
+ margin-top:7px;
+}
+
+input,textarea{
+ width:100%;
+ padding:12px;
+ margin:7px 0 14px;
+ border-radius:8px;
+ border:1px solid #31563b;
+ background:#0b1810;
+ color:white;
+}
+
+footer{
+ text-align:center;
+ color:#849b8b;
+ font-size:11px;
+ padding:20px;
+}
+
+.hidden{display:none!important}
 </style>
 </head>
 
 <body>
+
 <header>
-  <div class="logo">KLS ⚽</div>
-  <div class="tagline">FOOTBALL PREDICTIONS & ANALYSIS</div>
+ <div class="logo">KLS ⚽</div>
+ <div class="tagline">FOOTBALL PREDICTIONS & ANALYSIS</div>
 </header>
 
 <main>
-  <section class="banner">
-    <div class="label">WELCOME TO KLS</div>
-    <h2>Make smarter football predictions.</h2>
-    <p>Explore match previews, prediction ideas and football analysis in one place.</p>
-  </section>
 
-  <h2>⚽ Today's Predictions</h2>
-  <p class="muted">Sample cards — upcoming matches will be added here.</p>
+<section id="home" class="page">
+ <div class="banner">
+  <div class="label">WELCOME TO KLS</div>
+  <h1>Football predictions. Smarter analysis.</h1>
+  <p class="muted">Explore match predictions, follow results and track our performance.</p>
+  <button class="primary" onclick="showPage('picks')">Explore Predictions →</button>
+ </div>
 
-  <div class="card">
-    <div class="row">
-      <span class="label">MATCH PREVIEW</span>
-      <span class="muted">Demo</span>
-    </div>
-    <div class="teams">Home Team vs Away Team</div>
-    <div class="row">
-      <span class="muted">Prediction</span>
-      <span class="pick">Home or Draw</span>
-    </div>
-  </div>
+ <h2>⚽ Featured Predictions</h2>
+ <div id="featured"></div>
 
-  <div class="card">
-    <div class="row">
-      <span class="label">MATCH PREVIEW</span>
-      <span class="muted">Demo</span>
-    </div>
-    <div class="teams">Team A vs Team B</div>
-    <div class="row">
-      <span class="muted">Prediction</span>
-      <span class="pick">Over 1.5 Goals</span>
-    </div>
-  </div>
+ <button onclick="showPage('results')">View Prediction Statistics →</button>
 
-  <h2>📊 Our Goal</h2>
-  <div class="card">
-    <p>We aim to provide clear football analysis and transparent prediction records.</p>
-    <p class="muted">Predictions are uncertain and no outcome is guaranteed.</p>
-  </div>
+ <h2>📌 About KLS</h2>
+ <div class="card">
+  <p>Football analysis and predictions in one place.</p>
+  <p class="muted">Every prediction involves uncertainty. No result is guaranteed.</p>
+  <button onclick="showPage('about')">Learn More</button>
+ </div>
+</section>
+
+
+<section id="picks" class="page hidden">
+ <h2>⚽ Football Predictions</h2>
+ <p class="muted">Browse predictions by category.</p>
+
+ <div class="tabs">
+  <button class="active" onclick="filterPicks('All',this)">All</button>
+  <button onclick="filterPicks('1X2',this)">1X2</button>
+  <button onclick="filterPicks('Goals',this)">Goals</button>
+  <button onclick="filterPicks('BTTS',this)">BTTS</button>
+ </div>
+
+ <div id="allPicks"></div>
+</section>
+
+
+<section id="results" class="page hidden">
+ <h2>📊 Results & Statistics</h2>
+ <p class="muted">Statistics are calculated from predictions marked as won or lost.</p>
+
+ <div class="stat">Total Settled<strong id="total">0</strong></div>
+ <div class="stat">Won<strong id="won">0</strong></div>
+ <div class="stat">Lost<strong id="lost">0</strong></div>
+ <div class="stat">Accuracy<strong id="accuracy">0%</strong></div>
+
+ <h2>Prediction History</h2>
+ <div id="history"></div>
+</section>
+
+
+<section id="vip" class="page hidden">
+ <div class="banner">
+  <div class="label">KLS VIP</div>
+  <h1>VIP Predictions</h1>
+  <p>Premium football analysis and exclusive prediction packages.</p>
+ </div>
+
+ <div class="card">
+  <h3>VIP Membership</h3>
+  <p class="muted">Membership options and payment features will be introduced later.</p>
+  <button class="primary" onclick="alert('VIP registration is not available yet. Check back later!')">Coming Soon</button>
+ </div>
+
+ <p class="muted">No payment is collected by this demo page.</p>
+</section>
+
+
+<section id="about" class="page hidden">
+ <h2>ℹ️ About KLS</h2>
+
+ <div class="card">
+  <h3>Our Mission</h3>
+  <p>To provide football fans with match analysis, prediction ideas and transparent performance records.</p>
+ </div>
+
+ <div class="card">
+  <h3>Contact</h3>
+  <p class="muted">Add your official Telegram or WhatsApp contact when ready.</p>
+ </div>
+
+ <div class="card">
+  <h3>Responsible Play</h3>
+  <p class="muted">Predictions are estimates, not guarantees. Never risk money you cannot afford to lose.</p>
+ </div>
+</section>
+
+
+<section id="admin" class="page hidden">
+ <h2>🔐 Manage Predictions</h2>
+ <p class="muted">Demo controls for adding and settling predictions on this device.</p>
+
+ <div class="card">
+  <label>Home team</label>
+  <input id="team1" placeholder="e.g. Arsenal">
+
+  <label>Away team</label>
+  <input id="team2" placeholder="e.g. Chelsea">
+
+  <label>Prediction category</label>
+  <select id="category">
+   <option value="1X2">1X2</option>
+   <option value="Goals">Goals</option>
+   <option value="BTTS">BTTS</option>
+  </select>
+
+  <label>Prediction</label>
+  <input id="prediction" placeholder="e.g. Home Win">
+
+  <label>Match date and time</label>
+  <input id="matchDate" type="datetime-local">
+
+  <button class="primary" onclick="addPick()">Add Prediction</button>
+ </div>
+
+ <h2>Manage Existing Predictions</h2>
+ <div id="managePicks"></div>
+
+ <p class="muted">Important: these demo controls have no login or server database. They are not secure for public administration.</p>
+</section>
+
 </main>
 
 <nav>
-  <a href="#">🏠 Home</a>
-  <a href="#predictions">⚽ Picks</a>
-  <a href="#results">📊 Results</a>
-  <a href="#about">ℹ️ About</a>
+ <button class="active" data-page="home" onclick="showPage('home')">🏠<br>Home</button>
+ <button data-page="picks" onclick="showPage('picks')">⚽<br>Picks</button>
+ <button data-page="results" onclick="showPage('results')">📊<br>Results</button>
+ <button data-page="vip" onclick="showPage('vip')">🔥<br>VIP</button>
+ <button data-page="about" onclick="showPage('about')">ℹ️<br>About</button>
 </nav>
 
 <footer>
-  KLS Football Predictions<br>
-  For informational purposes only. Football predictions involve uncertainty.
-  Please gamble responsibly.
+ KLS Football Predictions<br>
+ Predictions are estimates, not guarantees.
 </footer>
+
+<script>
+const storageKey = "kls_football_demo_v1";
+
+let picks = [];
+
+try {
+ picks = JSON.parse(localStorage.getItem(storageKey) || "[]");
+ if (!Array.isArray(picks)) picks = [];
+} catch(e) {
+ picks = [];
+}
+
+function save(){
+ try {
+  localStorage.setItem(storageKey,JSON.stringify(picks));
+ } catch(e) {
+  alert("Could not save on this device. Please check browser storage.");
+ }
+}
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+ });
+}
+
+function showPage(page){
+ document.querySelectorAll(".page").forEach(function(el){
+  el.classList.add("hidden");
+ });
+
+ document.getElementById(page).classList.remove("hidden");
+
+ document.querySelectorAll("nav button").forEach(function(btn){
+  btn.classList.toggle("active",btn.dataset.page===page);
+ });
+
+ if(page==="results") renderResults();
+ if(page==="picks") renderPicks();
+ if(page==="home") renderFeatured();
+ window.scrollTo(0,0);
+}
+
+function cardHTML(p,admin){
+ let date = p.date ? new Date(p.date).toLocaleString() : "Date not set";
+ let status = p.status==="pending" ? "Pending" :
+              p.status==="won" ? "Won ✅" : "Lost ❌";
+
+ return `
+ <div class="card">
+  <div class="row">
+   <span class="label">${escapeHTML(p.category)}</span>
+   <span class="muted">${escapeHTML(status)}</span>
+  </div>
+  <div class="teams">${escapeHTML(p.home)} vs ${escapeHTML(p.away)}</div>
+  <p class="muted">${escapeHTML(date)}</p>
+  <div class="row">
+   <span class="muted">Prediction</span>
+   <span class="pick">${escapeHTML(p.prediction)}</span>
+  </div>
+  ${admin && p.status==="pending" ? `
+   <div class="tabs">
+    <button onclick="settle('${p.id}','won')">Mark Won</button>
+    <button onclick="settle('${p.id}','lost')">Mark Lost</button>
+    <button onclick="removePick('${p.id}')">Delete</button>
+   </div>` : ""}
+ </div>`;
+}
+
+function renderFeatured(){
+ let list = picks.filter(p=>p.status==="pending").slice(0,3);
+ document.getElementById("featured").innerHTML = list.length ?
+ list.map(p=>cardHTML(p,false)).join("") :
+ `<div class="card"><p>No predictions published yet.</p>
+ <p class="muted">Add your first prediction in the demo management section.</p>
+ <button onclick="showPage('admin')">Manage Predictions</button></div>`;
+}
+
+function renderPicks(category="All"){
+ let list = picks.filter(p=>category==="All" || p.category===category);
+ document.getElementById("allPicks").innerHTML = list.length ?
+ list.map(p=>cardHTML(p,false)).join("") :
+ `<div class="card">No predictions in this category yet.</div>`;
+}
+
+function filterPicks(category,button){
+ document.querySelectorAll("#picks .tabs button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderPicks(category);
+}
+
+function renderResults(){
+ let settled=picks.filter(p=>p.status!=="pending");
+ let wins=settled.filter(p=>p.status==="won").length;
+ let losses=settled.filter(p=>p.status==="lost").length;
+ let total=wins+losses;
+
+ document.getElementById("total").textContent=total;
+ document.getElementById("won").textContent=wins;
+ document.getElementById("lost").textContent=losses;
+ document.getElementById("accuracy").textContent=
+ total ? Math.round(wins/total*100)+"%" : "0%";
+
+ let history=picks.filter(p=>p.status!=="pending");
+ document.getElementById("history").innerHTML=history.length ?
+ history.map(p=>cardHTML(p,false)).join("") :
+ `<div class="card">No settled predictions yet.</div>`;
+}
+
+function renderManage(){
+ document.getElementById("managePicks").innerHTML=picks.length ?
+ picks.map(p=>cardHTML(p,true)).join("") :
+ `<div class="card">No predictions to manage.</div>`;
+}
+
+function addPick(){
+ let home=document.getElementById("team1").value.trim();
+ let away=document.getElementById("team2").value.trim();
+ let category=document.getElementById("category").value;
+ let prediction=document.getElementById("prediction").value.trim();
+ let date=document.getElementById("matchDate").value;
+
+ if(!home || !away || !prediction){
+  alert("Please enter both teams and a prediction.");
+  return;
+ }
+
+ picks.unshift({
+  id:Date.now().toString(),
+  home,away,category,prediction,date,
+  status:"pending"
+ });
+
+ save();
+ document.getElementById("team1").value="";
+ document.getElementById("team2").value="";
+ document.getElementById("prediction").value="";
+ document.getElementById("matchDate").value="";
+
+ renderManage();
+ renderFeatured();
+ renderPicks();
+
+ alert("Prediction added!");
+}
+
+function settle(id,status){
+ let p=picks.find(p=>p.id===id);
+ if(!p) return;
+
+ if(!confirm("Record this prediction as "+status+"?")) return;
+
+ p.status=status;
+ save();
+ renderManage();
+ renderFeatured();
+ renderPicks();
+ renderResults();
+}
+
+function removePick(id){
+ if(!confirm("Delete this prediction?")) return;
+
+ picks=picks.filter(p=>p.id!==id);
+ save();
+ renderManage();
+ renderFeatured();
+ renderPicks();
+ renderResults();
+}
+
+renderFeatured();
+renderPicks();
+renderResults();
+renderManage();
+</script>
+
 </body>
 </html>
